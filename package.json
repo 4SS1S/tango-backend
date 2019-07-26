@@ -5,7 +5,12 @@
   "author": "4SS1S",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^8.0.0",
     "express": "^4.17.1",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "webtorrent": "^0.105.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
   }
 }
