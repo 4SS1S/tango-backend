@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+
+let app = require('../app');
+let http = require('http');
+let cluster = require('cluster');
+
+let server;
+
+let port = process.env.PORT || 3333;
+app.set('port', port);
+
+if(cluster.isMaster) {
+    let cpuCount = 1 //require('os').cpus().length;
+    while(cpuCount--)
+    {
+        cluster.fork();
+    }
+	cluster.on('exit', function (worker) {
+	cluster.fork();
+	console.log('Worker %d died :(', worker.id);
+	});
+}
+else
+{
+	server = http.createServer(app);
+	server.listen(port);
+	server.on('error', onError);
+	server.on('listening', onListening);
+}
+
+function onError(error)
+{
+	if(error.syscall !== 'listen') {
+		throw error;
+	}
+
+	switch(error.code)
+	{
+		case 'EACCES':
+			console.error("Port %d requires elevated privileges", port);
+			process.exit(1);
+			break;
+		case 'EADDRINUSE':
+			console.error("Port %d is already in use", port);
+			process.exit(1);
+			break;
+		default:
+			throw error;
+	}
+}
+
+function onListening() {
+	console.log("Worker %d is listening on port %d", cluster.worker.id, port);
+}
