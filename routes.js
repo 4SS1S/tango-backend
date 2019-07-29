@@ -24,7 +24,7 @@ client.on('error', function(err) {
 });
 
 Router.get("/",(req,res) => {
-    res.send(process.env.URL_MONGODB)
+	res.send('ok');
 });
 
 client.on('download', function(bytes) {
