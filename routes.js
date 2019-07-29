@@ -1,6 +1,7 @@
 const express = require("express");
 const webtorrent = require("webtorrent");
 require('express-group-routes');
+require('dotenv').config();
 
 const MovieController   = require('./controllers/MovieController');
 const SerieController   = require('./controllers/SerieController');
@@ -23,7 +24,7 @@ client.on('error', function(err) {
 });
 
 Router.get("/",(req,res) => {
-    res.send("ok")
+    res.send(process.env.URL_MONGODB)
 });
 
 client.on('download', function(bytes) {
