@@ -14,16 +14,8 @@ require("dotenv").config();
 const app = require("./app");
 
 
-mongoose.connect(process.env.URL_MONGODB, {
-  server: {
-      sslValidate:true
-    , sslCA:ca
-    , sslKey:key
-    , sslCert:cert
-    , sslPass:'10gen'
-  }
-}, function(err, db) {
-  db.close();
+mongoose.connect("mongodb+srv://teste:teste@cluster0-ovenc.mongodb.net/test?retryWrites=true&w=majority", {
+ useNewUrlParser: true 
 });
 
 app.listen(3333);
