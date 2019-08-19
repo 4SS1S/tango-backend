@@ -5,10 +5,6 @@ const f = require('util').format;
 const fs = require('fs');
 
 
-var ca = [fs.readFileSync(__dirname + "/ssl/ca.pem")];
-var cert = fs.readFileSync(__dirname + "/ssl/client.pem");
-var key = fs.readFileSync(__dirname + "/ssl/client.pem");
-
 require("dotenv").config();
 
 const app = require("./app");
@@ -18,4 +14,4 @@ mongoose.connect("mongodb+srv://teste:teste@cluster0-ovenc.mongodb.net/test?retr
  useNewUrlParser: true 
 });
 
-app.listen(3333);
+app.listen(process.env.PORT || 3333);
